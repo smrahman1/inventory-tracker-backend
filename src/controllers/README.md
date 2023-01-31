@@ -1,0 +1,2 @@
+# Service Template Backend
+This folder contains all controllers the app utilizes to fulfil requests, typically these are `.js` files. A controller relies on a related service from the `services` folder, and should only contain basic logic with requests and error handling. <u>A controller should _NOT_ contain any database calls.</u>

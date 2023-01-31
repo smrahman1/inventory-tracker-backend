@@ -1,0 +1,2 @@
+# Service Template Backend
+This folder contains all services used by the backend app, typically these are `.js` files. A service relies on a related model from the `db/models` folder, as an extra layer of abstraction. <u>A service should _NOT_ contain any database calls.</u>
