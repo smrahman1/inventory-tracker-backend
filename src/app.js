@@ -14,12 +14,12 @@ app.use(bodyParser.json());
 app.use(
   cors({
     origin: function (origin, callback) {
-      const whitelist = JSON.parse(CORS_WHITELISTED_DOMAINS);
-      if (!origin || whitelist.indexOf(origin) !== -1) {
-        callback(null, true);
-      } else {
-        callback(createError(400, 'Not allowed by CORS'));
-      }
+      callback(null, true);
+      // const whitelist = JSON.parse(CORS_WHITELISTED_DOMAINS);
+      // if (!origin || whitelist.indexOf(origin) !== -1) {
+      // } else {
+      //   callback(createError(400, 'Not allowed by CORS'));
+      // }
     },
     credentials: true,
     exposedHeaders: ['set-cookie'],
