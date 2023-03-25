@@ -23,7 +23,7 @@ class User {
           .then((data) => {
             if (data.length === 0) {
               database('users')
-                .insert({ username: username, password: hash, isActive: false })
+                .insert({ username: username, password: hash, isactive: false })
                 .catch((err) => console.log(err));
             }
           });
@@ -34,11 +34,11 @@ class User {
 
   static async setIsActive(username, activeState) {
     const availableUser = await this.getUser(username);
-    if (activeState === availableUser.isActive) return;
+    if (activeState === availableUser.isactive) return;
     await database('users')
       .where({ username })
       .first()
-      .update({ isActive: activeState });
+      .update({ isactive: activeState });
   }
 
   static passportLocalStrategyConnection(username, password, done) {

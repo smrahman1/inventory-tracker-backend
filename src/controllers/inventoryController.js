@@ -16,7 +16,13 @@ class InventoryController {
 
   static async addInventoryItem(req, res, next) {
     try {
-      const response = await InventoryService.addInventoryItem();
+      const { title, quantity, size, unitPrice } = req.body;
+      const response = await InventoryService.addInventoryItem(
+        title,
+        quantity,
+        size,
+        unitPrice
+      );
       res.status(200).json(response);
     } catch (e) {
       next(createError(500, e.message));
@@ -26,7 +32,7 @@ class InventoryController {
   static async updateInventoryItem(req, res, next) {
     try {
       const response = await InventoryService.updateInventoryItem(
-        req.body.item,
+        req.body.id,
         req.body.field,
         req.body.value
       );
@@ -38,9 +44,7 @@ class InventoryController {
 
   static async deleteInventoryItem(req, res, next) {
     try {
-      const response = await InventoryService.deleteInventoryItem(
-        req.body.item
-      );
+      const response = await InventoryService.deleteInventoryItem(req.body.ids);
       res.status(200).json(response);
     } catch (e) {
       next(createError(500, e.message));

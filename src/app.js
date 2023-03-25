@@ -4,6 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const usersRouter = require('./routes/users');
+const inventoryRouter = require('./routes/inventory');
 const { PORT, CORS_WHITELISTED_DOMAINS } = require('./utils/constants');
 
 const app = express();
@@ -25,6 +26,7 @@ app.use(
   })
 );
 app.use('/users', usersRouter);
+app.use('/inventory', inventoryRouter);
 
 app.get('/', (request, response, next) => {
   response.sendStatus(200);
