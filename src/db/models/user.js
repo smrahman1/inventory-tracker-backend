@@ -23,7 +23,11 @@ class User {
           .then((data) => {
             if (data.length === 0) {
               database('users')
-                .insert({ username, password: hash, isactive: false })
+                .insert({
+                  username,
+                  password: hash,
+                  isactive: false,
+                })
                 .catch((err) => console.log(err));
             }
           });

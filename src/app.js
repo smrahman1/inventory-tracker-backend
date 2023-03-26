@@ -2,11 +2,11 @@ require('dotenv').config();
 const logger = require('morgan');
 const express = require('express');
 const cors = require('cors');
+const { PORT } = require('./utils/constants');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const usersRouter = require('./routes/users');
 const inventoryRouter = require('./routes/inventory');
-const { PORT } = require('./utils/constants');
 const configurePassport = require('./middleware/passport');
 
 const app = express();
@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin(origin, callback) {
+    origin: function (origin, callback) {
       callback(null, true);
     },
     credentials: true,
@@ -29,7 +29,7 @@ configurePassport(app);
 app.use('/users', usersRouter);
 app.use('/inventory', inventoryRouter);
 
-app.get('/', (request, response) => {
+app.get('/', (request, response, next) => {
   response.sendStatus(200);
 });
 

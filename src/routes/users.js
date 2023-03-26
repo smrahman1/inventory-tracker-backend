@@ -15,7 +15,7 @@ router.get(
 );
 
 // Get current user's information
-router.get(
+router.post(
   '/me',
   passport.authenticate('jwt', { session: false }),
   UserController.getUser
