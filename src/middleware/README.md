@@ -1,2 +1,0 @@
-# Service Template Backend
-This folder contains the passport `LocalStrategy` authentication and helper functions, typically these are `.js` files. The passport setup/management should stay contained in this folder, specifically within [passport.js](./passport.js).

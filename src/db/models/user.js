@@ -3,27 +3,27 @@ const database = require('../database_connection');
 
 class User {
   static async getUser(username) {
-    return await database('users')
+    return database('users')
       .where({ username })
       .first()
       .then((row) => row);
   }
 
   static async getUsers() {
-    return await database('users').then((users) => response.json(users)[0]);
+    return database('users').then((users) => response.json(users)[0]);
   }
 
   static async registerUser(username, password) {
     const availableUser = await this.getUser(username);
-    if (availableUser != undefined) return false;
+    if (availableUser !== undefined) return false;
     bcrypt.genSalt(10, (err, salt) => {
-      bcrypt.hash(password, salt, function (err, hash) {
+      bcrypt.hash(password, salt, (err, hash) => {
         database('users')
           .where({ username })
           .then((data) => {
             if (data.length === 0) {
               database('users')
-                .insert({ username: username, password: hash, isactive: false })
+                .insert({ username, password: hash, isactive: false })
                 .catch((err) => console.log(err));
             }
           });
@@ -33,7 +33,7 @@ class User {
   }
 
   static async setIsActive(username, activeState) {
-    const availableUser = await this.getUser(username);
+    const availableUser = this.getUser(username);
     if (activeState === availableUser.isactive) return;
     await database('users')
       .where({ username })

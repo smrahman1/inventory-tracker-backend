@@ -1,6 +1,5 @@
-const InventoryService = require('../services/inventoryService');
 const createError = require('http-errors');
-const passport = require('../middleware/passport');
+const InventoryService = require('../services/inventoryService');
 
 class InventoryController {
   static async getAllInventory(req, res, next) {
@@ -16,7 +15,9 @@ class InventoryController {
 
   static async addInventoryItem(req, res, next) {
     try {
-      const { title, quantity, size, unitPrice } = req.body;
+      const {
+        title, quantity, size, unitPrice
+      } = req.body;
       const response = await InventoryService.addInventoryItem(
         title,
         quantity,

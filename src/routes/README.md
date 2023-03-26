@@ -1,2 +1,0 @@
-# Service Template Backend
-This folder contains all routes used by the backend app, typically these are `.js` files. A route relies on a related controller from the `controllers` folder, and should only contain clean routing with no logic. <u>A route should _NOT_ contain any database calls.</u>

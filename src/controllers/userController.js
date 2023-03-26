@@ -1,5 +1,5 @@
-const UserService = require('../services/userService');
 const createError = require('http-errors');
+const UserService = require('../services/userService');
 const passport = require('../middleware/passport');
 
 class UserController {
@@ -36,7 +36,7 @@ class UserController {
   }
 
   static async login(req, res, next) {
-    passport.authenticate('local', (err, user, info) => {
+    passport.authenticate('local', (err, user) => {
       if (err) {
         res.status(500).json({ status: 'Internal server error' });
       }

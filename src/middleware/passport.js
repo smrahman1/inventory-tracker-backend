@@ -1,11 +1,33 @@
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const UserService = require('../services/userService');
+const passportJWT = require('passport-jwt');
 
-passport.use(
-  new LocalStrategy({}, (username, password, done) =>
-    UserService.passportLocalStrategyConnection(username, password, done)
-  )
-);
+const { JWT_SECRET } = require('../utils/constants');
 
-module.exports = passport;
+module.exports = function configurePassport(app) {
+  const cookieExtractor = (req) => {
+    let jwt = null;
+
+    if (req && req.cookies) {
+      jwt = req.cookies['jwt'];
+    }
+
+    return jwt;
+  };
+  passport.use(
+    new passportJWT.Strategy(
+      {
+        jwtFromRequest: cookieExtractor,
+        secretOrKey: JWT_SECRET,
+      },
+      (payload, done) => {
+        try {
+          done(null, payload);
+        } catch (err) {
+          done;
+        }
+      }
+    )
+  );
+
+  app.use(passport.initialize());
+};

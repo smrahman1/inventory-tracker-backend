@@ -1,16 +1,33 @@
 const express = require('express');
+
 const router = express.Router();
 const UserController = require('../controllers/userController');
 const { loginRedirect } = require('../middleware/helpers');
+const passport = require('passport');
+const adminOnly = require('../middleware/adminOnlyRoute');
 
 // Get all users
-router.get('/', UserController.getUsers);
+router.get(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  adminOnly,
+  UserController.getUsers
+);
 
 // Get current user's information
-router.get('/me', UserController.getUser);
+router.get(
+  '/me',
+  passport.authenticate('jwt', { session: false }),
+  UserController.getUser
+);
 
 // Register
-router.post('/register', UserController.register);
+router.post(
+  '/register',
+  passport.authenticate('jwt', { session: false }),
+  adminOnly,
+  UserController.register
+);
 
 // Login
 router.post('/login', loginRedirect, UserController.login);

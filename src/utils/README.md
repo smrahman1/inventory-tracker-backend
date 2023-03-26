@@ -1,2 +1,0 @@
-# Service Template Backend
-This folder contains extra helpers or data, typically these are `.js` files. Currently, the [constants.js](./constants.js) file is used to configure the environment variables in the [.env](../.env) file; <u>other files should _NOT_ contain any `process.env` statements.</u>
