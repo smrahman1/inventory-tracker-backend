@@ -16,9 +16,16 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: function (origin, callback) {
-      callback(null, true);
-    },
+    origin: true,
+    credentials: true,
+    exposedHeaders: ['set-cookie'],
+  })
+);
+
+app.options(
+  '*',
+  cors({
+    origin: true,
     credentials: true,
     exposedHeaders: ['set-cookie'],
   })
