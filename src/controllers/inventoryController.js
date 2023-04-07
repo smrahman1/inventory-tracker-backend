@@ -15,9 +15,7 @@ class InventoryController {
 
   static async addInventoryItem(req, res, next) {
     try {
-      const {
-        title, quantity, size, unitPrice
-      } = req.body;
+      const { title, quantity, size, unitPrice } = req.body;
       const response = await InventoryService.addInventoryItem(
         title,
         quantity,
@@ -46,6 +44,15 @@ class InventoryController {
   static async deleteInventoryItem(req, res, next) {
     try {
       const response = await InventoryService.deleteInventoryItem(req.body.ids);
+      res.status(200).json(response);
+    } catch (e) {
+      next(createError(500, e.message));
+    }
+  }
+
+  static async fetchInventoryItem(req, res, next) {
+    try {
+      const response = await InventoryService.fetchInventoryItem();
       res.status(200).json(response);
     } catch (e) {
       next(createError(500, e.message));

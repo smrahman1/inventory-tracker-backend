@@ -32,4 +32,10 @@ router.delete(
   InventoryController.deleteInventoryItem
 );
 
+router.get(
+  '/fetch',
+  passport.authenticate('jwt', { session: false }),
+  InventoryController.fetchInventoryItem
+);
+
 module.exports = router;
